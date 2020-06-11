@@ -1,7 +1,7 @@
 namespace Zuul
 {
 	public class Command
-	{
+	{ 
 		private string commandWord;
 		private string secondWord;
 
