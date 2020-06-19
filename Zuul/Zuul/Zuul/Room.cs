@@ -42,7 +42,7 @@ namespace Zuul
 	     */
 		public string getLongDescription()
 		{
-			string returnstring = "You are ";
+			string returnstring = "";
 			returnstring += description;
 			returnstring += ".\n";
 			returnstring += getExitstring();

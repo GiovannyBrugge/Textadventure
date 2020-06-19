@@ -18,11 +18,11 @@ namespace Zuul
 			Room outside, theatre, pub, lab, office;
 
 			// create the rooms
-			outside = new Room("outside the main entrance of the university");
-			theatre = new Room("in a lecture theatre");
-			pub = new Room("in the campus pub");
-			lab = new Room("in a computing lab");
-			office = new Room("in the computing admin office");
+			outside = new Room("at the front yard.");
+			theatre = new Room("in a campus pub.");
+			pub = new Room("in the campus pub.");
+			lab = new Room("in thecomputing lab.");
+			office = new Room("in computing admin office.");
 
 			// initialise room exits
 			outside.setExit("east", theatre);
@@ -56,7 +56,7 @@ namespace Zuul
 				Command command = parser.getCommand();
 				finished = processCommand(command);
 			}
-			Console.WriteLine("Thank you for playing.");
+			Console.WriteLine("Thank you for playing, press 'enter' again to quit.");
 		}
 
 		/**
@@ -65,11 +65,15 @@ namespace Zuul
 		private void printWelcome()
 		{
 			Console.WriteLine();
-			Console.WriteLine("Welcome to Zuul!");
-			Console.WriteLine("Zuul is a new, incredibly boring adventure game.");
-			Console.WriteLine("Type 'help' if you need help.");
+			Console.WriteLine("Welcome to Giovanny's textadventure game.");
+			Console.WriteLine("This is a horror textadventure game.");
+			Console.WriteLine("If you see a name before a sentence then that person is talking. ");
+			Console.WriteLine("If not, then something is being said by a narrator (like me).");
 			Console.WriteLine();
-			Console.WriteLine(currentRoom.getLongDescription());
+			Console.WriteLine("If you need help, type 'help'.");
+			Console.WriteLine();
+			Console.WriteLine("You have arrived at your destination.");
+			Console.WriteLine("As you enter the front yard, the gates behind you start to close.");
 		}
 
 		/**
@@ -82,7 +86,7 @@ namespace Zuul
 			bool wantToQuit = false;
 
 			if(command.isUnknown()) {
-				Console.WriteLine("I don't know what you mean...");
+				Console.WriteLine("I can't do that");
 				return false;
 			}
 
@@ -96,6 +100,9 @@ namespace Zuul
 					break;
 				case "quit":
 					wantToQuit = true;
+					break;
+				case "look":
+					checkRoom();
 					break;
 			}
 
@@ -112,7 +119,6 @@ namespace Zuul
 		private void printHelp()
 		{
 			Console.WriteLine("You are lost. You are alone.");
-			Console.WriteLine("You wander around at the university.");
 			Console.WriteLine();
 			Console.WriteLine("Your command words are:");
 			parser.showCommands();
@@ -126,7 +132,7 @@ namespace Zuul
 		{
 			if(!command.hasSecondWord()) {
 				// if there is no second word, we don't know where to go...
-				Console.WriteLine("Go where?");
+				Console.WriteLine("Where do you want to go?");
 				return;
 			}
 
@@ -136,12 +142,16 @@ namespace Zuul
 			Room nextRoom = currentRoom.getExit(direction);
 
 			if (nextRoom == null) {
-				Console.WriteLine("There is no door to "+direction+"!");
+				Console.WriteLine("You: I don't see a door in the direction "+direction+".");
 			} else {
 				currentRoom = nextRoom;
 				Console.WriteLine(currentRoom.getLongDescription());
 			}
 		}
+        private void checkRoom()
+        {
+			Console.WriteLine("You: It seems like I am currently " + currentRoom.getShortDescription());
+        }
 
 	}
 }

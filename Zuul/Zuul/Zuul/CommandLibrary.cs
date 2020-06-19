@@ -15,7 +15,8 @@ namespace Zuul
 			validCommands = new string[] {
 				"go",
 				"quit",
-				"help"
+				"help",
+				"look"
 			};
 		}
 
