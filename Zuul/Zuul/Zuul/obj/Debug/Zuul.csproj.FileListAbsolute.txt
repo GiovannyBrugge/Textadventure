@@ -7,8 +7,8 @@ C:\Users\rik\alfacollege\TextAdventure\Zuul\Zuul\Zuul\obj\Debug\Zuul.exe
 C:\Users\rik\alfacollege\TextAdventure\Zuul\Zuul\Zuul\obj\Debug\Zuul.pdb
 C:\Users\Giovanni\Documents\Schooljaar2019-2020\Periode04\TTS - Rik\Textadventure\Zuul\Zuul\Zuul\obj\Debug\Zuul.exe
 C:\Users\Giovanni\Documents\Schooljaar2019-2020\Periode04\TTS - Rik\Textadventure\Zuul\Zuul\Zuul\obj\Debug\Zuul.pdb
-C:\Users\Giovanni\Documents\Schooljaar2019-2020\Periode04\TTS - Rik\Textadventure\Zuul\Zuul\Zuul\obj\Debug\Zuul.csprojAssemblyReference.cache
 C:\Users\Giovanni\Documents\Schooljaar2019-2020\Periode04\TTS - Rik\Textadventure\Zuul\Zuul\Zuul\obj\Debug\Zuul.csproj.CoreCompileInputs.cache
 C:\Users\Giovanni\Documents\Schooljaar2019-2020\Periode04\TTS - Rik\Textadventure\Zuul\Zuul\Zuul\bin\Debug\Zuul.exe.config
 C:\Users\Giovanni\Documents\Schooljaar2019-2020\Periode04\TTS - Rik\Textadventure\Zuul\Zuul\Zuul\bin\Debug\Zuul.exe
 C:\Users\Giovanni\Documents\Schooljaar2019-2020\Periode04\TTS - Rik\Textadventure\Zuul\Zuul\Zuul\bin\Debug\Zuul.pdb
+C:\Users\Giovanni\Documents\Schooljaar2019-2020\Periode04\TTS - Rik\Textadventure\Zuul\Zuul\Zuul\obj\Debug\Zuul.csprojAssemblyReference.cache

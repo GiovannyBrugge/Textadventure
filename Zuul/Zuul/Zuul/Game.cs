@@ -5,12 +5,13 @@ namespace Zuul
 	public class Game
 	{
 		private Parser parser;
-		private Room currentRoom;
+		public Player player;
 
 		public Game ()
 		{
-			createRooms();
 			parser = new Parser();
+			player = new Player();
+			createRooms();
 		}
 
 		private void createRooms()
@@ -21,7 +22,7 @@ namespace Zuul
 			outside = new Room("at the front yard.");
 			theatre = new Room("in a campus pub.");
 			pub = new Room("in the campus pub.");
-			lab = new Room("in thecomputing lab.");
+			lab = new Room("in the computing lab.");
 			office = new Room("in computing admin office.");
 
 			// initialise room exits
@@ -38,7 +39,8 @@ namespace Zuul
 
 			office.setExit("west", lab);
 
-			currentRoom = outside;  // start game outside
+			player.currentRoom = outside;  // start game outside
+
 		}
 
 
@@ -74,6 +76,8 @@ namespace Zuul
 			Console.WriteLine();
 			Console.WriteLine("You have arrived at your destination.");
 			Console.WriteLine("As you enter the front yard, the gates behind you start to close.");
+			Console.WriteLine();
+			Console.WriteLine(player.currentRoom.getLongDescription());
 		}
 
 		/**
@@ -139,18 +143,21 @@ namespace Zuul
 			string direction = command.getSecondWord();
 
 			// Try to leave current room.
-			Room nextRoom = currentRoom.getExit(direction);
+			Room nextRoom = player.currentRoom.getExit(direction);
 
 			if (nextRoom == null) {
 				Console.WriteLine("You: I don't see a door in the direction "+direction+".");
 			} else {
-				currentRoom = nextRoom;
-				Console.WriteLine(currentRoom.getLongDescription());
+				player.currentRoom = nextRoom;
+				Console.WriteLine();
+				Console.WriteLine("You went " + direction);
+				Console.WriteLine(player.currentRoom.getLongDescription());
+				
 			}
 		}
         private void checkRoom()
         {
-			Console.WriteLine("You: It seems like I am currently " + currentRoom.getShortDescription());
+			Console.WriteLine("You: It seems like I am currently " + player.currentRoom.getShortDescription());
         }
 
 	}

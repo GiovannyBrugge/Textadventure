@@ -43,11 +43,13 @@ namespace Zuul
 		public string getLongDescription()
 		{
 			string returnstring = "";
-			returnstring += description;
-			returnstring += ".\n";
+			//returnstring += description;
+			returnstring += "\n";
 			returnstring += getExitstring();
 			return returnstring;
 		}
+
+		
 
 		/**
 	     * Return a string describing the room's exits, for example
@@ -55,7 +57,7 @@ namespace Zuul
 	     */
 		private string getExitstring()
 		{
-			string returnstring = "Exits:";
+			string returnstring = "You can go:";
 
 			// because `exits` is a Dictionary, we can't use a `for` loop
 			int commas = 0;
