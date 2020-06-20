@@ -12,6 +12,7 @@ namespace Zuul
 			parser = new Parser();
 			player = new Player();
 			createRooms();
+			
 		}
 
 		private void createRooms()
@@ -41,6 +42,7 @@ namespace Zuul
 
 			player.currentRoom = outside;  // start game outside
 
+           
 		}
 
 
@@ -58,7 +60,9 @@ namespace Zuul
 				Command command = parser.getCommand();
 				finished = processCommand(command);
 			}
+			
 			Console.WriteLine("Thank you for playing, press 'enter' again to quit.");
+
 		}
 
 		/**
@@ -77,6 +81,8 @@ namespace Zuul
 			Console.WriteLine("You have arrived at your destination.");
 			Console.WriteLine("As you enter the front yard, the gates behind you start to close.");
 			Console.WriteLine();
+			Console.WriteLine("Health:" + player.health);
+			Console.WriteLine();
 			Console.WriteLine(player.currentRoom.getLongDescription()); 
 		}
 
@@ -88,8 +94,8 @@ namespace Zuul
 		private bool processCommand(Command command)
 		{
 			bool wantToQuit = false;
-
-			if(command.isUnknown()) {
+		
+			if (command.isUnknown()) {
 				Console.WriteLine("I can't do that");
 				return false;
 			}
@@ -151,14 +157,17 @@ namespace Zuul
 				player.currentRoom = nextRoom;
 				Console.WriteLine();
 				Console.WriteLine("You went " + direction);
-				Console.WriteLine(player.currentRoom.getLongDescription());
-				
+				Console.WriteLine("You lost: " + player.damageTaken(25) + " health" );
+				Console.WriteLine("Health:" + player.health);
+				Console.WriteLine();
+				player.isAlive();
+				Console.WriteLine(player.currentRoom.getLongDescription());	
 			}
 		}
+
         private void checkRoom()
         {
 			Console.WriteLine("You: It seems like I am currently " + player.currentRoom.getShortDescription());
         }
-
 	}
 }

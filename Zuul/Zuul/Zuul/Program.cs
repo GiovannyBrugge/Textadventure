@@ -11,7 +11,7 @@ namespace Zuul
         {
             Game game = new Game();
             game.play();
-
+           
             // close the window with 'enter'
             Console.ReadLine();
         }

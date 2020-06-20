@@ -6,15 +6,11 @@ namespace Zuul
 	{
 		public Room currentRoom;
 		public int health;
-
+		
 		public Player()
 		{
-			
 			health = 100;
-			damageTaken(25);
 			isAlive();
-			healthHealed(10);
-			
 		}
 
 		public int damageTaken(int amount) 
@@ -36,14 +32,20 @@ namespace Zuul
 			if (health <= 0)
 			{
 				//Console.WriteLine("you died");
+				die();
 				return false;
 			}
 			else
 			{
 				return true;
-			}
-
-						
+			}			
         }
+
+		public void die()
+        {
+			Console.WriteLine("You died, press enter to exit.");
+			Console.ReadLine();
+			System.Environment.Exit(1);
+		}
 	}
 }
