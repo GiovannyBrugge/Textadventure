@@ -17,30 +17,35 @@ namespace Zuul
 
 		private void createRooms()
 		{
-			Room outside, theatre, pub, lab, office;
+			Room frontYard, lobby, basement, kitchen, livingRoom, attic;
 
 			// create the rooms
-			outside = new Room("at the front yard.");
-			theatre = new Room("in a campus pub.");
-			pub = new Room("in the campus pub.");
-			lab = new Room("in the computing lab.");
-			office = new Room("in computing admin office.");
+			frontYard = new Room("at the front yard.");
+			lobby = new Room("in a lobby.");
+			basement = new Room("in a basement.");
+			livingRoom = new Room("in a living room.");
+			kitchen = new Room("in a kitchen.");
+			attic = new Room("in an attic");
 
 			// initialise room exits
-			outside.setExit("east", theatre);
-			outside.setExit("south", lab);
-			outside.setExit("west", pub);
+			frontYard.setExit("north", lobby);
+			
+			lobby.setExit("south", frontYard);
+			lobby.setExit("down", basement);
+			lobby.setExit("up", attic);
+			lobby.setExit("west", kitchen);
 
-			theatre.setExit("west", outside);
+			basement.setExit("up", lobby);
 
-			pub.setExit("east", outside);
+			attic.setExit("down", lobby);
 
-			lab.setExit("north", outside);
-			lab.setExit("east", office);
+			kitchen.setExit("south-east", lobby);
+			kitchen.setExit("north-east", livingRoom);
 
-			office.setExit("west", lab);
+			livingRoom.setExit("west", kitchen);
 
-			player.currentRoom = outside;  // start game outside
+
+			player.currentRoom = frontYard;  // start game outside
 
            
 		}
