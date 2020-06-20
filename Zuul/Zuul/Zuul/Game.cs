@@ -77,7 +77,7 @@ namespace Zuul
 			Console.WriteLine("You have arrived at your destination.");
 			Console.WriteLine("As you enter the front yard, the gates behind you start to close.");
 			Console.WriteLine();
-			Console.WriteLine(player.currentRoom.getLongDescription());
+			Console.WriteLine(player.currentRoom.getLongDescription()); 
 		}
 
 		/**
