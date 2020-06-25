@@ -18,36 +18,37 @@ namespace Zuul
 		private void createRooms()
 		{
 			Room frontYard, lobby, basement, kitchen, livingRoom, attic;
+			if (player.health > 0)
+			{
+				// create the rooms
+				frontYard = new Room("at the front yard.");
+				lobby = new Room("in a lobby.");
+				basement = new Room("in a basement.");
+				livingRoom = new Room("in a living room.");
+				kitchen = new Room("in a kitchen.");
+				attic = new Room("in an attic");
 
-			// create the rooms
-			frontYard = new Room("at the front yard.");
-			lobby = new Room("in a lobby.");
-			basement = new Room("in a basement.");
-			livingRoom = new Room("in a living room.");
-			kitchen = new Room("in a kitchen.");
-			attic = new Room("in an attic");
+				// initialise room exits
+				frontYard.setExit("north", lobby);
 
-			// initialise room exits
-			frontYard.setExit("north", lobby);
-			
-			lobby.setExit("south", frontYard);
-			lobby.setExit("down", basement);
-			lobby.setExit("up", attic);
-			lobby.setExit("west", kitchen);
+				lobby.setExit("south", frontYard);
+				lobby.setExit("down", basement);
+				lobby.setExit("up", attic);
+				lobby.setExit("west", kitchen);
 
-			basement.setExit("up", lobby);
+				basement.setExit("up", lobby);
 
-			attic.setExit("down", lobby);
+				attic.setExit("down", lobby);
 
-			kitchen.setExit("south-east", lobby);
-			kitchen.setExit("north-east", livingRoom);
+				kitchen.setExit("south-east", lobby);
+				kitchen.setExit("north-east", livingRoom);
 
-			livingRoom.setExit("west", kitchen);
+				livingRoom.setExit("west", kitchen);
 
 
-			player.currentRoom = frontYard;  // start game outside
+				player.currentRoom = frontYard;  // start game outside
 
-           
+			}
 		}
 
 
@@ -64,10 +65,23 @@ namespace Zuul
 			while (! finished) {
 				Command command = parser.getCommand();
 				finished = processCommand(command);
-			}
-			
-			Console.WriteLine("Thank you for playing, press 'enter' again to quit.");
 
+				if (player.health <= 0)
+				{
+					finished = true;
+					
+				}
+			}
+
+
+			if (player.health > 0)
+			{
+				Console.WriteLine("Thank you for playing, press 'enter' again to quit.");
+			}
+			else if (player.health <= 0)
+            {
+				Console.WriteLine("You died, press 'enter' again to quit.");
+            }
 		}
 
 		/**
@@ -166,7 +180,9 @@ namespace Zuul
 				Console.WriteLine("Health:" + player.health);
 				Console.WriteLine();
 				player.isAlive();
-				Console.WriteLine(player.currentRoom.getLongDescription());	
+				if (player.health > 0) {
+					Console.WriteLine(player.currentRoom.getLongDescription());
+				}
 			}
 		}
 

@@ -4,6 +4,7 @@ namespace Zuul
 {
 	public class Room
 	{
+		
 		private string description;
 		private Dictionary<string, Room> exits; // stores exits of this room.
 

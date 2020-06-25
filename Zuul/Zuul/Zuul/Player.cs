@@ -31,8 +31,6 @@ namespace Zuul
 
 			if (health <= 0)
 			{
-				//Console.WriteLine("you died");
-				die();
 				return false;
 			}
 			else
@@ -41,11 +39,6 @@ namespace Zuul
 			}			
         }
 
-		public void die()
-        {
-			Console.WriteLine("You died, press enter to exit.");
-			Console.ReadLine();
-			System.Environment.Exit(1);
-		}
+		
 	}
 }
