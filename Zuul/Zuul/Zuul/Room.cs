@@ -1,12 +1,14 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Zuul
 {
 	public class Room
 	{
-		
+		public Inventory inventory;
 		private string description;
 		private Dictionary<string, Room> exits; // stores exits of this room.
+		private List<string> items;
 
 		/**
 	     * Create a room described "description". Initially, it has no exits.
@@ -15,8 +17,10 @@ namespace Zuul
 	     */
 		public Room(string description)
 		{
+			inventory = new Inventory(99999);
 			this.description = description;
 			exits = new Dictionary<string, Room>();
+			items = new List<string>();
 		}
 
 		/**
@@ -27,6 +31,8 @@ namespace Zuul
 			exits[direction] = neighbor;
 		}
 
+
+		
 		/**
 	     * Return the description of the room (the one that was defined in the
 	     * constructor).
@@ -35,6 +41,8 @@ namespace Zuul
 		{
 			return description;
 		}
+
+		
 
 		/**
 	     * Return a long description of this room, in the form:

@@ -5,10 +5,12 @@ namespace Zuul
 	public class Player
 	{
 		public Room currentRoom;
+		public Inventory inventory;
 		public int health;
 		
 		public Player()
 		{
+			inventory = new Inventory(12);
 			health = 100;
 			isAlive();
 		}

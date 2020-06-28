@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Zuul
 {
@@ -6,7 +7,7 @@ namespace Zuul
 	{
 		private Parser parser;
 		public Player player;
-
+		
 		public Game ()
 		{
 			parser = new Parser();
@@ -18,6 +19,7 @@ namespace Zuul
 		private void createRooms()
 		{
 			Room frontYard, lobby, basement, kitchen, livingRoom, attic;
+			Key housekey, basementkey; 
 			if (player.health > 0)
 			{
 				// create the rooms
@@ -27,10 +29,14 @@ namespace Zuul
 				livingRoom = new Room("in a living room.");
 				kitchen = new Room("in a kitchen.");
 				attic = new Room("in an attic");
+				// create keys
+				housekey = new Key("housekey", 1);
+				basementkey = new Key("basementkey", 2);
 
-				// initialise room exits
+				// initialise room exits and items
 				frontYard.setExit("north", lobby);
-
+				frontYard.inventory.addItem(housekey);
+				
 				lobby.setExit("south", frontYard);
 				lobby.setExit("down", basement);
 				lobby.setExit("up", attic);
@@ -44,8 +50,7 @@ namespace Zuul
 				kitchen.setExit("north-east", livingRoom);
 
 				livingRoom.setExit("west", kitchen);
-
-
+				livingRoom.inventory.addItem(basementkey);
 				player.currentRoom = frontYard;  // start game outside
 
 			}
@@ -133,6 +138,15 @@ namespace Zuul
 				case "look":
 					checkRoom();
 					break;
+				case "pickup":
+					pickupItem(command);
+					break;
+				case "drop":
+					dropItem(command);
+					break;
+				case "inventory":
+					showInventory(command);
+					break;
 			}
 
 			return wantToQuit;
@@ -189,6 +203,54 @@ namespace Zuul
         private void checkRoom()
         {
 			Console.WriteLine("You: It seems like I am currently " + player.currentRoom.getShortDescription());
+			Console.WriteLine(player.currentRoom.inventory.showItem());
+		}
+
+		private void pickupItem(Command command)
+		{
+			if (!command.hasSecondWord())
+			{
+				Console.WriteLine("What do I want to pick up?");
+				return;
+			}
+			else if (command.hasSecondWord())
+			{
+				string item = command.getSecondWord();
+				Console.WriteLine(item + " picked up.");
+				player.currentRoom.inventory.tradeItem(player.inventory, item);
+			}
+			//Console.WriteLine(player.currentRoom.inventory.showItem());
+			
+		}
+		private void dropItem(Command command)
+        {
+			if (!command.hasSecondWord())
+			{
+				Console.WriteLine("What do I want to drop?");
+				return;
+			}
+			else if (command.hasSecondWord()) {
+				string item = command.getSecondWord();
+				Console.WriteLine(item + " dropped.");
+				player.inventory.tradeItem(player.currentRoom.inventory, item);
+				//Console.WriteLine(player.currentRoom.inventory.showItem());
+			}
+		}
+		private void showInventory(Command command)
+        {
+			if (player.inventory.items.Count == 0)
+			{
+				Console.WriteLine();
+				Console.WriteLine("I currently don't have anything in my inventory");
+			}
+			else if (player.inventory.items.Count >= 1)
+			{
+				Console.WriteLine();
+				Console.WriteLine("Max weight: 12");
+				Console.WriteLine("I currently have:");
+				Console.WriteLine();
+				Console.WriteLine(player.inventory.showInventoryItem());
+			}
         }
 	}
 }
