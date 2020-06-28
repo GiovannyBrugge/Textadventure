@@ -19,7 +19,7 @@ namespace Zuul
 		private void createRooms()
 		{
 			Room frontYard, lobby, basement, kitchen, livingRoom, attic;
-			Key housekey, basementkey, orangekey; 
+			Key housekey, basementkey, blackkey; 
 			if (player.health > 0)
 			{
 				// create the rooms
@@ -32,7 +32,7 @@ namespace Zuul
 				// create keys
 				housekey = new Key("housekey", 1);
 				basementkey = new Key("basementkey", 2);
-				orangekey = new Key("orangekey", 1);
+				blackkey = new Key("blackkey", 1);
 				// initialise room exits and items
 				frontYard.setExit("north", lobby);
 				frontYard.inventory.addItem(housekey);
@@ -48,7 +48,7 @@ namespace Zuul
 
 				kitchen.setExit("south-east", lobby);
 				kitchen.setExit("north-east", livingRoom);
-				kitchen.inventory.addItem(orangekey);
+				kitchen.inventory.addItem(blackkey);
 				livingRoom.setExit("west", kitchen);
 				livingRoom.inventory.addItem(basementkey);
 				player.currentRoom = frontYard;  // start game outside
@@ -218,9 +218,9 @@ namespace Zuul
 				string item = command.getSecondWord();
 				Console.WriteLine(item + " picked up.");
 				player.currentRoom.inventory.tradeItem(player.inventory, item);
-					if (item == "orangekey")
+					if (item == "blackkey")
 					{
-					Console.WriteLine("They key was too hot that it became ash. ");
+					Console.WriteLine("The key was too hot that it became ash. ");
 					Console.WriteLine("You burned your hands in the progress.");
 					Console.WriteLine();
 					Console.WriteLine("You lost: " + player.damageTaken(25) + " health");
