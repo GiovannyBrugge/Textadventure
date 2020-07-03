@@ -27,11 +27,17 @@ namespace Zuul
         }
 
         // this method is 'virtual', and should be 'override' in subclasses.
-        public virtual void Use()
+
+        public virtual void Use(Object o)
         {
-          
+            System.Console.WriteLine("Item::Use(Object o)");
         }
 
+        public virtual void Use()
+        {
+            System.Console.WriteLine("Item::Use()");
+        }
+      
 
 
 

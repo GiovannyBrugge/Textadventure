@@ -11,7 +11,7 @@ namespace Zuul
 		public Player()
 		{
 			inventory = new Inventory(12);
-			health = 100;
+			health = 200;
 			isAlive();
 		}
 

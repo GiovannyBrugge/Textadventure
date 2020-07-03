@@ -7,7 +7,9 @@ namespace Zuul
 	{
 		private Parser parser;
 		public Player player;
-		
+		public Room frontYard, lobby, basement, kitchen, livingRoom, attic;
+		public Key housekey, basementkey;
+		public Potion healthpotion, poisonpotion;
 		public Game ()
 		{
 			parser = new Parser();
@@ -16,10 +18,9 @@ namespace Zuul
 			
 		}
 
-		private void createRooms()
+		public void createRooms()
 		{
-			Room frontYard, lobby, basement, kitchen, livingRoom, attic;
-			Key housekey, basementkey, blackkey; 
+			
 			if (player.health > 0)
 			{
 				// create the rooms
@@ -32,27 +33,31 @@ namespace Zuul
 				// create keys
 				housekey = new Key("housekey", 1);
 				basementkey = new Key("basementkey", 2);
-				blackkey = new Key("blackkey", 1);
+				housekey.Use(lobby);
+				basementkey.Use(basement);
+				// creat potions
+				healthpotion = new Potion("healthpotion", 4);
+				poisonpotion = new Potion("poisonpotion", 4);
 				// initialise room exits and items
 				frontYard.setExit("north", lobby);
 				frontYard.inventory.addItem(housekey);
-				
 				lobby.setExit("south", frontYard);
 				lobby.setExit("down", basement);
 				lobby.setExit("up", attic);
 				lobby.setExit("west", kitchen);
-
+				lobby.locked = true;
 				basement.setExit("up", lobby);
-
+				basement.locked = true;
+				basement.inventory.addItem(healthpotion);
 				attic.setExit("down", lobby);
-
+				attic.inventory.addItem(poisonpotion);
 				kitchen.setExit("south-east", lobby);
 				kitchen.setExit("north-east", livingRoom);
-				kitchen.inventory.addItem(blackkey);
 				livingRoom.setExit("west", kitchen);
 				livingRoom.inventory.addItem(basementkey);
 				player.currentRoom = frontYard;  // start game outside
 
+				
 			}
 		}
 
@@ -147,6 +152,9 @@ namespace Zuul
 				case "inventory":
 					showInventory(command);
 					break;
+				case "use":
+					useItem(command);
+					break;
 			}
 
 			return wantToQuit;
@@ -186,7 +194,13 @@ namespace Zuul
 
 			if (nextRoom == null) {
 				Console.WriteLine("You: I don't see a door in the direction "+direction+".");
-			} else {
+               
+			}
+			else if (nextRoom.locked)
+			{
+				Console.WriteLine("This door is locked");
+			}
+			else {
 				player.currentRoom = nextRoom;
 				Console.WriteLine();
 				Console.WriteLine("You went " + direction);
@@ -218,15 +232,7 @@ namespace Zuul
 				string item = command.getSecondWord();
 				Console.WriteLine(item + " picked up.");
 				player.currentRoom.inventory.tradeItem(player.inventory, item);
-					if (item == "blackkey")
-					{
-					Console.WriteLine("The key was too hot that it became ash. ");
-					Console.WriteLine("You burned your hands in the progress.");
-					Console.WriteLine();
-					Console.WriteLine("You lost: " + player.damageTaken(25) + " health");
-					Console.WriteLine("Health:" + player.health);
-					player.inventory.removeItem(item);
-					}
+					
 			}
 			
 			//Console.WriteLine(player.currentRoom.inventory.showItem());
@@ -262,5 +268,39 @@ namespace Zuul
 				Console.WriteLine(player.inventory.showInventoryItem());
 			}
         }
+		public void useItem(Command command) 
+		{
+			
+			if (!command.hasSecondWord())
+			{
+				Console.WriteLine("What do I want to use?");
+				return;
+			}
+			else if (command.hasSecondWord()) {
+				string item = command.getSecondWord();
+				if (player.inventory.items.Contains(housekey))
+				{
+					lobby.Unlock();
+				}
+                if (player.inventory.items.Contains(basementkey) && player.currentRoom == lobby)
+                {
+					basement.Unlock();
+                }
+                if (player.inventory.items.Contains(healthpotion))
+                {
+					player.healthHealed(50);
+					Console.WriteLine("Your health has healed by 50.");
+					Console.WriteLine("Health: " + player.health);
+					player.inventory.items.Remove(healthpotion);
+				}
+				if (player.inventory.items.Contains(poisonpotion))
+				{
+					player.damageTaken(75);
+					Console.WriteLine("Your health has been damaged by 75");
+					Console.WriteLine("Health: " + player.health);
+					player.inventory.items.Remove(poisonpotion);
+				}
+			}
+		}
 	}
 }

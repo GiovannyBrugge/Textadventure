@@ -85,6 +85,7 @@ namespace Zuul
                 trader.addItem(trade);
             }
         }
+       
         private int totalWeight()
 		{
 			int t = 0;

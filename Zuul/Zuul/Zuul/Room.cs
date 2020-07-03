@@ -9,7 +9,7 @@ namespace Zuul
 		private string description;
 		private Dictionary<string, Room> exits; // stores exits of this room.
 		private List<string> items;
-
+		public bool locked;
 		/**
 	     * Create a room described "description". Initially, it has no exits.
 	     * "description" is something like "in a kitchen" or "in an open court
@@ -17,6 +17,7 @@ namespace Zuul
 	     */
 		public Room(string description)
 		{
+			this.locked = false;
 			inventory = new Inventory(99999);
 			this.description = description;
 			exits = new Dictionary<string, Room>();
@@ -92,6 +93,14 @@ namespace Zuul
 				return null;
 			}
 
+		}
+		public void Unlock()
+        {
+			if (this.locked)
+			{
+				this.locked = false;
+				System.Console.WriteLine("You unlocked the door.");
+			}
 		}
 	}
 }
